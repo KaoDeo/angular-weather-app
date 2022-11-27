@@ -7,16 +7,17 @@ import { WeatherService } from './services/weather.service';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
+  weatherData: any;
+  cityName: string = 'tbilisi';
+
   constructor(private weatherService: WeatherService) {
-    this.weatherService.getWeatherData('tbilisi').subscribe({
+    this.weatherService.getWeatherData(this.cityName).subscribe({
       next: (res) => {
+        console.log(res);
         this.weatherData = res;
       },
     });
   }
-
-  weatherData: any;
-  cityName: string = 'tbilisi';
 
   onSubmit() {
     this.weatherService.getWeatherData(this.cityName).subscribe({
@@ -25,5 +26,10 @@ export class AppComponent {
       },
     });
     this.cityName = '';
+  }
+
+  public farenheitToCelsius(num: number) {
+    console.log((num - 32) * (5 / 9));
+    return (num - 32) * (5 / 9);
   }
 }
