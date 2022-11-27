@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { WeatherService } from './services/weather.service';
 
 @Component({
@@ -6,19 +6,17 @@ import { WeatherService } from './services/weather.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent implements OnInit {
-  constructor(private weatherService: WeatherService) {}
-
-  weatherData: any;
-  cityName: string = 'tbilisi';
-
-  ngOnInit(): void {
+export class AppComponent {
+  constructor(private weatherService: WeatherService) {
     this.weatherService.getWeatherData('tbilisi').subscribe({
       next: (res) => {
         this.weatherData = res;
       },
     });
   }
+
+  weatherData: any;
+  cityName: string = 'tbilisi';
 
   onSubmit() {
     this.weatherService.getWeatherData(this.cityName).subscribe({
